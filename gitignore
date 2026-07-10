@@ -1,0 +1,20 @@
+# Bench / ERPNext-Artefakte NICHT einchecken
+frappe-bench/
+sites/*/site_config.json
+common_site_config.json
+
+# Build / Dependencies
+node_modules/
+__pycache__/
+*.pyc
+env/
+.venv/
+
+# OS / Editor
+.DS_Store
+.idea/
+*.log
+
+# Optional: große Backups lieber als GitHub-Release/LFS statt im Repo
+# backup/*.tar
+# backup/*.sql.gz
