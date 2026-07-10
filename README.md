@@ -168,9 +168,9 @@ Aus dem Ordner `frappe-bench`:
 ```bash
 BK=/workspace/development/backup
 bench --site development.localhost restore \
-  $BK/20260710_224015-development_localhost-database.sql.gz \
-  --with-public-files  $BK/20260710_224015-development_localhost-files.tar \
-  --with-private-files $BK/20260710_224015-development_localhost-private-files.tar
+  $BK/20260710_230439-development_localhost-database.sql.gz \
+  --with-public-files  $BK/20260710_230439-development_localhost-files.tar \
+  --with-private-files $BK/20260710_230439-development_localhost-private-files.tar
 
 bench --site development.localhost migrate
 ```
@@ -224,7 +224,7 @@ Mahn-*Dokument* (Prozess 3, „Fetch Overdue Payments" – der Dunning Type steh
 
 ## Verifizieren, dass es läuft (kurze Abnahme)
 
-> ✅ **Backup ist vollständig:** Das mitgelieferte Backup (`20260710_224015-…`) enthält den
+> ✅ **Backup ist vollständig:** Das mitgelieferte Backup (`20260710_230439-…`) enthält den
 > kompletten Demo-Datensatz. Nach Restore + `migrate` ist die folgende Abnahme-Liste erfüllt.
 
 Nach dem Login sollte sichtbar sein:

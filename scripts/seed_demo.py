@@ -292,6 +292,8 @@ try:
         dt = frappe.new_doc("Dunning Type")
         dt.dunning_type = "Erste Mahnung"; dt.company = COMPANY; dt.is_default = 1
         dt.dunning_fee = 5; dt.rate_of_interest = 9.12
+        dt.income_account = "4830 - Sonstige betriebliche Erträge - F&DG"
+        dt.cost_center = CC
         try:
             dt.append("dunning_letter_text", {"language": "de", "body_text": MAHNTEXT,
                 "closing_text": "Mit freundlichen Grüßen\nFacility- & Depotcleaning GmbH"})

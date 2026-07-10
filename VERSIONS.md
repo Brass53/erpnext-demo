@@ -1,7 +1,7 @@
 # VERSIONS – exakter Stand unserer Demo
 
 Diese Datei hält fest, mit welchen Versionen die Demo läuft. Wer 1:1 unseren Zustand
-reproduzieren will, nutzt diese Angaben. Das mitgelieferte Backup (`20260710_224015-…`)
+reproduzieren will, nutzt diese Angaben. Das mitgelieferte Backup (`20260710_230439-…`)
 wurde mit **Frappe 16.26.3** erzeugt und enthält den **vollständigen Demo-Datensatz**
 (2 Kunden, 2 Artikel, Rechnungen RE-2026-0001/0002, Zahlung, Timesheet, Mahn-Typ). Frisch
 installiert wird die jeweils aktuelle `version-16`-Spitze, auf die `migrate` das Schema hebt.
@@ -17,7 +17,7 @@ installiert wird die jeweils aktuelle `version-16`-Spitze, auf die `migrate` das
 | Komponente | Version / Branch | Quelle |
 |---|---|---|
 | Frappe Framework (installiert) | **16.26.3** (branch `version-16`) | `bench version` |
-| Frappe Framework (Backup, vollständig) | **16.26.3** | neues Backup `20260710_224015-…-database.sql.gz` |
+| Frappe Framework (Backup, vollständig) | **16.26.3** | neues Backup `20260710_230439-…-database.sql.gz` |
 | MariaDB (Server, im Container) | 11.8.x | `.devcontainer/docker-compose.yml` |
 | **Python (Installer-Flag)** | **3.14.2** | `-p 3.14.2` in `installer.py` (via `pyenv install 3.14.2` im Container) |
 | **Node (Installer-Flag)** | **24** | `-n 24` in `installer.py` (via `nvm install 24` im Container) |
@@ -55,7 +55,7 @@ done
 installiert, kann einen neueren Commit ziehen als wir (und ggf. noch höhere Runtime-
 Anforderungen). Für exakte Reproduktion die Commits oben per `git checkout <hash>` fixieren.
 
-**Backup-Inhalt:** Das mitgelieferte Backup (`20260710_224015-…`) enthält den
+**Backup-Inhalt:** Das mitgelieferte Backup (`20260710_230439-…`) enthält den
 **vollständigen Demo-Datensatz** – Company (SKR04), beide Kunden, beide Artikel, die
 Rechnungen RE-2026-0001 (*Paid*) und RE-2026-0002 (*Overdue*), die Zahlung, das Timesheet,
 Steuervorlage 19 %, Bankkonto und den Dunning Type. Alternativ lässt sich der Datensatz per
