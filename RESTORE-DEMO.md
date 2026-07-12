@@ -39,6 +39,16 @@ Haken findet nur POS-Rechnungen). Deshalb **Zweischritt**:
 **Mahnung (Schritt 10):** am einfachsten direkt aus der überfälligen Rechnung `RE-2026-0002` →
 *Create → Dunning* → Dunning Type „Erste Mahnung" → Submit.
 
+### Schritt 11 – DATEV-Export (Steuerberater-Schnittstelle)
+Beide Backups enthalten bereits **DATEV Settings** (Berater-Nr. `1234567`, Mandanten-Nr. `55555`,
+Sachkonten-Länge 4, temp. Gegenkonto 9000). Ohne diese zeigt der DATEV-Report nichts an.
+- Suche → **„DATEV"** (Report) → Company = FDC, From `01.06.2026`, To `31.07.2026`.
+- Der Report listet die Buchungssätze (Soll/Haben, Konten 4400/1200/3806/1800).
+- Oben rechts **„Download DATEV File"** → EXTF-CSV (Buchungsstapel) für den Steuerberater.
+
+> Fehlen die DATEV Settings auf einer frischen Site, bietet der Report selbst einen Dialog zum
+> Anlegen an. Im Echtbetrieb kommen Berater-/Mandantennummer vom Steuerberater.
+
 ## Die zwei Übungs-Entwürfe (fürs Live-Vorführen)
 
 | Entwurf | Für Schritt | Inhalt |

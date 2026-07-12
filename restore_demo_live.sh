@@ -23,7 +23,7 @@ set -euo pipefail
 CONTAINER="${CONTAINER:-frappe_docker_devcontainer-frappe-1}"
 SITE="development.localhost"
 DB_ROOT_PW="${DB_ROOT_PW:-123}"
-STAMP="20260712_130230-development_localhost"
+STAMP="20260712_144554-development_localhost"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BK_DIR="$SCRIPT_DIR/backup"
