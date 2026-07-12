@@ -3,15 +3,24 @@
 Ergänzung zum Haupt-Setup (siehe `README.md`). Diese Datei beschreibt **`restore_demo.sh`**
 und unser **vollständiges Backup** – ohne die bestehende README zu verändern.
 
-## Zwei Backups im `backup/`-Ordner
+## Zwei Reset-Skripte / drei Backups
 
-| Backup | Inhalt |
-|---|---|
-| `20260710_230439-…` | Ursprünglicher Stand: Company, Kunden, Artikel, RE-2026-0001/0002, Timesheet, Dunning **Type**. Bank-Import und Mahn-*Dokument* noch **nicht** enthalten. |
-| `20260711_151713-…` **(vollständig)** | **Superset:** zusätzlich Prozess 2 (Bank-Import + Zahlungsabgleich → RE-2026-0001 = **Paid**, Payment Entry) und Prozess 3 (echte **Mahnung** `DUNN-07-26-00001`). Plus zwei **Übungs-Entwürfe** fürs Live-Vorführen. |
+| Skript | Backup | Zustand |
+|---|---|---|
+| **`restore_demo.sh`** | `20260711_151713-…` | **Fertiger Endstand:** alles erledigt – RE-2026-0001 = **Paid** (inkl. Bank-Abgleich), RE-2026-0002 = **Overdue**, echte **Mahnung**, plus die 2 Übungs-Entwürfe. |
+| **`restore_demo_live.sh`** | `20260712_112006-…` | **Live-Startpunkt:** Stand VOR den interaktiven Schritten – RE-2026-0001 **offen** (noch nicht bezahlt), **keine** Bank-Transaktionen, **keine** Mahnung (Dunning Type bleibt). Damit lassen sich Schritt 7–10 **live vorführen**. |
 
-Beide bleiben bewusst erhalten. Wer den vollständigen Stand will, nimmt `restore_demo.sh`
-(nutzt automatisch das `…151713…`-Backup).
+Das ältere Kollegen-Backup `20260710_230439-…` (ohne Bank/Mahnung) bleibt zusätzlich erhalten.
+
+### Wann welches Skript?
+- **Ergebnis zeigen / schnell zurücksetzen:** `./restore_demo.sh` → fertiger Stand.
+- **Prozesse live vorführen (Bank-Import, Abgleich, Mahnung):** `./restore_demo_live.sh` → dann
+  in ERPNext: Rechnung aus Timesheet (7) → XRechnung (8) → Bank-Import + Abgleich (9) → Mahnung (10).
+  Danach ist der Stand ~fertig; mit `./restore_demo.sh` oder erneut `./restore_demo_live.sh` zurücksetzen.
+
+> **Wichtig zu Schritt 9:** Der Bank-Abgleich funktioniert nur, wenn RE-2026-0001 noch **offen**
+> ist. Im fertigen Stand (`restore_demo.sh`) ist sie schon *Paid* → dort findet der Abgleich
+> nichts. Für die Live-Vorführung also **`restore_demo_live.sh`** nehmen.
 
 ## Die zwei Übungs-Entwürfe (fürs Live-Vorführen)
 
