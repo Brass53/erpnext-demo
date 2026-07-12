@@ -7,10 +7,14 @@ und unser **vollständiges Backup** – ohne die bestehende README zu verändern
 
 | Skript | Backup | Zustand |
 |---|---|---|
-| **`restore_demo.sh`** | `20260711_151713-…` | **Fertiger Endstand:** alles erledigt – RE-2026-0001 = **Paid** (inkl. Bank-Abgleich), RE-2026-0002 = **Overdue**, echte **Mahnung**, plus die 2 Übungs-Entwürfe. |
-| **`restore_demo_live.sh`** | `20260712_112006-…` | **Live-Startpunkt:** Stand VOR den interaktiven Schritten – RE-2026-0001 **offen** (noch nicht bezahlt), **keine** Bank-Transaktionen, **keine** Mahnung (Dunning Type bleibt). Damit lassen sich Schritt 7–10 **live vorführen**. |
+| **`restore_demo.sh`** | `20260712_140657-…` | **Fertiger Endstand:** alles erledigt – RE-2026-0001 = **Paid** (inkl. Bank-Abgleich), RE-2026-0002 = **Overdue**, echte **Mahnung**, plus die 2 Übungs-Entwürfe. |
+| **`restore_demo_live.sh`** | `20260712_130230-…` | **Live-Startpunkt:** Stand VOR den interaktiven Schritten – RE-2026-0001 **offen** (noch nicht bezahlt), **keine** Bank-Transaktionen, **keine** Mahnung (Dunning Type bleibt). Damit lassen sich Schritt 7–10 **live vorführen**. |
 
 Das ältere Kollegen-Backup `20260710_230439-…` (ohne Bank/Mahnung) bleibt zusätzlich erhalten.
+
+> **Beide neuen Backups enthalten zwei Konto-Korrekturen**, ohne die der Bank-Abgleich (Schritt 9)
+> nicht funktioniert: Standard-**Forderungskonto** = `1200` (statt 3250) und Standard-**Bankkonto**
+> = `1800` (statt 1820). Sonst treffen sich Zahlung und Rechnung bzw. Zahlung und Bank-Transaktion nie.
 
 ### Wann welches Skript?
 - **Ergebnis zeigen / schnell zurücksetzen:** `./restore_demo.sh` → fertiger Stand.
@@ -21,6 +25,19 @@ Das ältere Kollegen-Backup `20260710_230439-…` (ohne Bank/Mahnung) bleibt zus
 > **Wichtig zu Schritt 9:** Der Bank-Abgleich funktioniert nur, wenn RE-2026-0001 noch **offen**
 > ist. Im fertigen Stand (`restore_demo.sh`) ist sie schon *Paid* → dort findet der Abgleich
 > nichts. Für die Live-Vorführung also **`restore_demo_live.sh`** nehmen.
+
+### Schritt 9 – so geht der Bank-Abgleich (wichtig!)
+Das ERPNext-Tool kann eine **normale offene Rechnung nicht direkt** matchen (der „Ausgangsrechnung"-
+Haken findet nur POS-Rechnungen). Deshalb **Zweischritt**:
+1. **Import:** `docs/bank_import_neu.csv` über *Bank Statement Import* einlesen (Spalten passen 1:1,
+   inkl. Pflichtspalte **Bank Account**) → 2 Bank Transactions.
+2. **Bezahlen:** Rechnung `RE-2026-0001` öffnen → *Create → Payment* → **Paid To = `1800 - Bank`** →
+   Submit → Rechnung **Paid**.
+3. **Abgleichen:** *Bank Reconciliation Tool* → Zeile 1.332,80 € → Haken **„Zahlung" (payment_entry)**
+   → den eben gebuchten Payment Entry auswählen → *Reconcile*. Zeile 250 € bleibt offen.
+
+**Mahnung (Schritt 10):** am einfachsten direkt aus der überfälligen Rechnung `RE-2026-0002` →
+*Create → Dunning* → Dunning Type „Erste Mahnung" → Submit.
 
 ## Die zwei Übungs-Entwürfe (fürs Live-Vorführen)
 
