@@ -2,19 +2,22 @@
 #
 # restore_demo_live.sh – Startpunkt für die LIVE-Demo der interaktiven Schritte.
 #
-# Setzt die Site auf den Stand VOR den interaktiven Prozessen, sodass du sie
-# live vorführen kannst:
-#   - RE-2026-0001 = Unpaid/offen (noch NICHT bezahlt)   -> Schritt 9 abgleichbar
-#   - KEINE Bank-Transaktionen, keine Zahlung            -> Bank-Import live zeigen
-#   - KEINE Mahnung (Dunning Type bleibt)                -> Schritt 10 live zeigen
+# Setzt die Site auf einen Demo-Startpunkt, der live vorführbar ist:
+#   - Ein-Klick-Auto-Reconcile bereit: 2 Bank-Zeilen (unabgeglichen) + Zahlung
+#     mit Referenz "RE-2026-0001" liegen vor. Bank Reconciliation Tool ->
+#     "Auto Reconcile" ordnet die Zeile mit der Rechnungsnummer AUTOMATISCH zu;
+#     die 250-EUR-Zeile ohne Referenz bleibt offen.
 #   - Übungs-Entwürfe TS-2026-00003 / RE-2026-0003       -> Schritt 6/7/8 live zeigen
-#   - Stammdaten, RE-2026-0002 (Overdue) usw. vorhanden
+#   - RE-2026-0002 (Overdue) + Dunning Type              -> Schritt 10 (Create -> Dunning)
+#   - DATEV Settings vorhanden                           -> Schritt 11 (DATEV-Export)
+#   - Konto-Fixes (Forderung 1200 / Bank 1800) enthalten
 #
-# Damit ist die Reihenfolge in der Demo:
+# Demo-Reihenfolge:
 #   Schritt 7  : aus TS-2026-00003 -> Rechnung erstellen (Create Sales Invoice)
 #   Schritt 8  : Entwurf RE-2026-0003 submitten -> XRechnung (Download eInvoice)
-#   Schritt 9  : bank_import CSV importieren -> Bank Reconciliation -> A wird Paid
-#   Schritt 10 : Dunning anlegen -> Fetch Overdue Payments (RE-2026-0002)
+#   Schritt 9  : Bank Reconciliation Tool -> "Auto Reconcile" (automatische Zuordnung)
+#   Schritt 10 : RE-2026-0002 -> Create -> Dunning
+#   Schritt 11 : DATEV-Report -> Download DATEV File
 #
 # Der FERTIGE Endstand liegt weiterhin in  restore_demo.sh.
 #
@@ -23,7 +26,7 @@ set -euo pipefail
 CONTAINER="${CONTAINER:-frappe_docker_devcontainer-frappe-1}"
 SITE="development.localhost"
 DB_ROOT_PW="${DB_ROOT_PW:-123}"
-STAMP="20260712_144554-development_localhost"
+STAMP="20260713_180434-development_localhost"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BK_DIR="$SCRIPT_DIR/backup"

@@ -5,10 +5,10 @@ und unser **vollständiges Backup** – ohne die bestehende README zu verändern
 
 ## Zwei Reset-Skripte / drei Backups
 
-| Skript | Backup | Zustand |
-|---|---|---|
-| **`restore_demo.sh`** | `20260712_140657-…` | **Fertiger Endstand:** alles erledigt – RE-2026-0001 = **Paid** (inkl. Bank-Abgleich), RE-2026-0002 = **Overdue**, echte **Mahnung**, plus die 2 Übungs-Entwürfe. |
-| **`restore_demo_live.sh`** | `20260712_130230-…` | **Live-Startpunkt:** Stand VOR den interaktiven Schritten – RE-2026-0001 **offen** (noch nicht bezahlt), **keine** Bank-Transaktionen, **keine** Mahnung (Dunning Type bleibt). Damit lassen sich Schritt 7–10 **live vorführen**. |
+| Skript | Zustand (Backup-Stamp steht jeweils im Skript unter `STAMP=`) |
+|---|---|
+| **`restore_demo.sh`** | **Fertiger Endstand:** alles erledigt – RE-2026-0001 = **Paid** (inkl. Bank-Abgleich), RE-2026-0002 = **Overdue**, echte **Mahnung**, plus die 2 Übungs-Entwürfe. |
+| **`restore_demo_live.sh`** | **Live-Demo-Startpunkt (Ein-Klick-Auto-Reconcile):** 2 Bank-Zeilen (unabgeglichen) + Zahlung mit Referenz „RE-2026-0001" liegen bereit → im Bank Reconciliation Tool nur **„Auto Reconcile"** klicken → automatische Zuordnung. Dazu die 2 Übungs-Entwürfe (Schritt 7/8), RE-2026-0002 Overdue + Dunning Type (Schritt 10), DATEV Settings (Schritt 11). |
 
 Das ältere Kollegen-Backup `20260710_230439-…` (ohne Bank/Mahnung) bleibt zusätzlich erhalten.
 
@@ -26,15 +26,29 @@ Das ältere Kollegen-Backup `20260710_230439-…` (ohne Bank/Mahnung) bleibt zus
 > ist. Im fertigen Stand (`restore_demo.sh`) ist sie schon *Paid* → dort findet der Abgleich
 > nichts. Für die Live-Vorführung also **`restore_demo_live.sh`** nehmen.
 
-### Schritt 9 – so geht der Bank-Abgleich (wichtig!)
-Das ERPNext-Tool kann eine **normale offene Rechnung nicht direkt** matchen (der „Ausgangsrechnung"-
-Haken findet nur POS-Rechnungen). Deshalb **Zweischritt**:
-1. **Import:** `docs/bank_import_neu.csv` über *Bank Statement Import* einlesen (Spalten passen 1:1,
-   inkl. Pflichtspalte **Bank Account**) → 2 Bank Transactions.
-2. **Bezahlen:** Rechnung `RE-2026-0001` öffnen → *Create → Payment* → **Paid To = `1800 - Bank`** →
-   Submit → Rechnung **Paid**.
-3. **Abgleichen:** *Bank Reconciliation Tool* → Zeile 1.332,80 € → Haken **„Zahlung" (payment_entry)**
-   → den eben gebuchten Payment Entry auswählen → *Reconcile*. Zeile 250 € bleibt offen.
+### Schritt 9 – automatische Zuordnung per Verwendungszweck (Muss-Anforderung)
+**Kernaussage:** Trägt die Bank-Buchung die **Rechnungsnummer im Verwendungszweck**, ordnet ERPNext
+sie **automatisch** der richtigen Zahlung/Rechnung zu. Bank-Zeile **und** Zahlung müssen dieselbe
+Referenz tragen.
+
+**Ein-Klick-Demo (aus `restore_demo_live.sh`):** Die 2 Bank-Zeilen und die Zahlung (Referenz
+„RE-2026-0001") liegen schon bereit.
+1. *Bank Reconciliation Tool* → Bank Account = `Geschäftskonto FDC`, Zeitraum 01.–12.07.2026 →
+   **„Get Unreconciled Entries"**.
+2. Button **„Auto Reconcile"** klicken.
+3. → Die Zeile **1.332,80 €** (Verwendungszweck „RE-2026-0001") wird **automatisch** der Zahlung
+   zugeordnet und grün. Die **250-€-Zeile ohne Rechnungsnummer bleibt offen** – der Beweis, dass es
+   per Referenz matcht, nicht per Betrag.
+
+> **Hintergrund/Technik:** Der Auto-Reconcile matcht Bank-Transaktion ↔ Payment Entry über
+> `reference_number == reference_no` (exakt). Deshalb muss die Zahlung dieselbe Referenz tragen wie
+> die Bank-Zeile. Der „Ausgangsrechnung"-Haken im Match-Dialog findet nur POS-Rechnungen und ist
+> für normale offene Rechnungen der falsche Weg.
+
+**Voller Ablauf (falls du es von Grund auf zeigen willst):** `docs/bank_import_neu.csv` über
+*Bank Statement Import* einlesen (Zeile 1 hat „RE-2026-0001" in *Reference Number*) → Rechnung
+`RE-2026-0001` → *Create → Payment* (Feld **Reference No** = `RE-2026-0001`, **Paid To** = `1800 - Bank`)
+→ Submit → dann **„Auto Reconcile"** wie oben.
 
 **Mahnung (Schritt 10):** am einfachsten direkt aus der überfälligen Rechnung `RE-2026-0002` →
 *Create → Dunning* → Dunning Type „Erste Mahnung" → Submit.
