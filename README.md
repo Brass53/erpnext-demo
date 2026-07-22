@@ -666,3 +666,6 @@ Host (Mac/Windows)
 - **Projekt:** Optimierung der Controllingprozesse · Kunde *Facility- & Depotcleaning GmbH* · **Team Scrumateure**.
 - **Verwendete Open-Source-Software:** [ERPNext](https://github.com/frappe/erpnext) & [Frappe](https://github.com/frappe/frappe) (GNU GPL v3), [eu_einvoice](https://github.com/alyf-de/eu_einvoice) und [erpnext_datev](https://github.com/alyf-de/erpnext_datev) (ALYF GmbH).
 - Teile der Einrichtung, Prüfung und Dokumentation entstanden mit **KI-Unterstützung** (Claude) und wurden vom Team auf Richtigkeit geprüft.
+
+> [!NOTE]
+> **KI-Transparenz-Hinweis (Team-Statement):** Auch der Prototyp ist KI-generiert – das Aufsetzen der Umgebung und die Python-Skripte wurden mit KI geschrieben und erstellt. Diese Dokumentation dient der Übersicht und wurde vom Team **Scrumateure** auf Richtigkeit geprüft.
