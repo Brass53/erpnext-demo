@@ -31,6 +31,7 @@
 ---
 
 ## Was ist das hier?
+* eine mithilfe von KI erstellte Anleitung und ReadMe 
 
 Dieses Repository ist **nicht** ERPNext selbst. Es ist das **Rezept plus die Demo-Daten**, mit denen man eine fertig eingerichtete ERPNext-Umgebung in wenigen Minuten nachbauen kann.
 
